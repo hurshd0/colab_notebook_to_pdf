@@ -41,6 +41,9 @@ def colab_to_pdf(notebook_pattern: str, notebooks_folder_name = 'Colab Notebooks
     notebooks = [x for x in pathlib.Path(notebooks_folder_path).iterdir() if 
              re.search(notebook_pattern, x.name, flags = re.I)]
 
+    if not (len(notebooks) > 0):
+        raise FileNotFoundError(f"can't find the notebooks given {notebook_pattern} regex pattern ☹️, Please Try Again!")
+
     # Install nbconvert dependencies
     get_ipython().system("apt update && apt install texlive-xetex texlive-fonts-recommended texlive-generic-recommended")
 
