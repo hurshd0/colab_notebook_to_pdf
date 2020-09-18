@@ -20,7 +20,7 @@ def colab_to_pdf(notebook_pattern: str, notebooks_folder_name = 'Colab Notebooks
         Colab notebooks folder name, by default it's `Colab Notebooks` you can change it to any other folder you like. 
     """
 
-    import os
+    import os, glob
     import re, pathlib 
     
     if not isinstance(notebook_pattern, str):
@@ -45,8 +45,14 @@ def colab_to_pdf(notebook_pattern: str, notebooks_folder_name = 'Colab Notebooks
     get_ipython().system("apt update && apt install texlive-xetex texlive-fonts-recommended texlive-generic-recommended")
 
     # Check if template exists, remove it if it does
-    if os.path.isfile('/content/classic.tplx'):
-        os.remove('/content/classic.tplx')
+    old_templates = glob.glob("*.tplx*" )
+    if len(old_templates) > 0:
+        print("="*80)
+        print(f"\n\nFound {len(old_templates)} template(s), removing them...") 
+        for template in old_templates:
+            print(f"\t removing {template}")
+            os.remove(template)
+    print("="*80)
     # Add Makaro's classic template that fixes any margin related issues.
     get_ipython().system("wget https://raw.githubusercontent.com/t-makaro/nb_pdf_template/master/nb_pdf_template/templates/classic.tplx")
     
