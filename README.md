@@ -4,9 +4,11 @@ Simple utility function that lets you convert your colab notebook(s) to PDF(s). 
 
 ## Usage
 
-1. Verify the notebook you want to convert is executed and saved.
+1. Verify the notebook you want to convert is executed and saved. 🔁
 2. Copy & Paste the below code in new colab notebook or new code cell of the notebook you want to convert.
-3. Replace the `r"sample_notebook\.ipynb"` with your notebook name or regex pattern. 
+![](https://i.imgur.com/PoqHfkG.png)
+
+3. Replace the `r"sample_notebook\.ipynb"` with your notebook name or regex pattern.  
 ```bash
 !rm -rf colab_to_pdf.py
 !wget https://raw.githubusercontent.com/hurshd0/colab_notebook_to_pdf/master/colab_to_pdf.py
