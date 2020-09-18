@@ -26,7 +26,7 @@ def colab_to_pdf(notebook_pattern: str, notebooks_folder_name = 'Colab Notebooks
     if not isinstance(notebook_pattern, str):
         raise TypeError(f"variable passed was not a string object, instead it is {type(notebook_pattern)} object.")
     
-    # Mount gdrive if not o=mounted
+    # Mount gdrive if not mounted
     gdrive_mount_point = '/content/drive'
     if not os.path.isdir(gdrive_mount_point):
         from google.colab import drive
@@ -44,8 +44,12 @@ def colab_to_pdf(notebook_pattern: str, notebooks_folder_name = 'Colab Notebooks
     # Install nbconvert dependencies
     get_ipython().system("apt update && apt install texlive-xetex texlive-fonts-recommended texlive-generic-recommended")
 
+    # Check if template exists, remove it if it does
+    if os.path.isfile('/content/classic.tplx'):
+        os.remove('/content/classic.tplx')
     # Add Makaro's classic template that fixes any margin related issues.
     get_ipython().system("wget https://raw.githubusercontent.com/t-makaro/nb_pdf_template/master/nb_pdf_template/templates/classic.tplx")
+    
 
     # Convert found notebooks to PDF
     for i, n in enumerate(notebooks):
